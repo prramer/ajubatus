@@ -1,0 +1,113 @@
+#! /bin/bash
+
+# ajubutus v0.0 - Renames groups of photos according to a scheme.
+#
+# Renames photo and video files according to the scheme
+# YYYY-MM-DD_photographer_camera_NNNN.EXT.  Currently, this script is only
+# compatible with renaming files from Nikon DSLRs such the NIkon D600.
+#
+# Copyright 2020 Paul R. Ramer (prramer)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You may use this program under the terms of the GNU GPL v3.
+# https://www.gnu.org/licenses/gpl-3.0.en.html
+
+
+
+# Environment variables
+#
+# Set these to make ajubutus automatically set the variables it uses for
+# renaming photos.  Note that command line arguments override environment
+# variables.
+#
+# $ajubutus_camera          Sets $camera
+# $ajubutus_capture_date    Sets $capture_date
+# $ajubutus_photographer    Sets $photographer
+# $ajubutus_old_scheme      Sets $old_scheme
+
+# Declaring variables
+program_name="ajubutus"
+camera=""
+capture_date=""
+photographer=""
+old_scheme=""
+new_scheme=""
+
+# Error codes
+error_normal=0
+error_missing_args=1
+
+# Declaring and defining functions
+exit_missing_args() {
+    echo "$program_name: Missing arguments."
+    echo "usage: photorenamer -d capture_date [-c camera] [-p photographer] [-s old name scheme]"
+    exit $error_missing_args
+}
+
+
+# Command line options.
+while getopts ":h:c:d:p:s:" arg; do
+    case $arg in
+        h) print_usage; exit $error_normal;; #Print usage help.
+        c) camera=$OPTARG;;
+        d) capture_date=$OPTARG;;
+        p) photographer=$OPTARG;;
+        s) old_scheme=$OPTARG;;
+    esac
+done
+
+# Don't run if a capture date isn't specified.
+if [ "$capture_date" == "" ]; then
+    if [ "$ajubutus_capture_date" == "" ]; then
+        echo "$ajubutus_capture_date" # Test code
+        echo "I ran." # Test code
+        exit_missing_args
+    else
+        capture_date=$ajubutus_capture_date
+    fi
+fi
+
+# Don't run if the camera model isn't set.
+if [ "$camera" == "" ]; then
+    if [ "$ajubutus_camera" == "" ]; then
+        exit_missing_args
+    else
+        camera=$ajubutus_camera
+    fi
+fi
+
+# Don't run if the photographer isn't set.
+if [ "$photographer" == "" ]; then
+    if [ "$ajubutus_photographer" == "" ]; then
+        exit_missing_args
+    else
+        photographer=$ajubutus_photographer
+    fi
+fi
+
+if [ "$old_scheme" == "" ]; then
+    if [ "$ajubutus_old_scheme" == "" ]; then
+        exit_missing_args
+    else
+        old_scheme=$ajubutus_old_scheme
+    fi
+fi
+
+# Now set the new naming scheme.
+new_scheme="${capture_date}_${photographer}_${camera}_"
+
+# Rename all files in the directory according to the naming scheme and make
+# sure everything is lowercase in the end.
+rename "s/$old_scheme/$new_scheme/" *
+rename -f 'y/A-Z/a-z/' *
