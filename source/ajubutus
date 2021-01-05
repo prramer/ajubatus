@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# ajubutus v0.0 - Renames groups of photos according to a scheme.
+# ajubutus v0.0 -- Renames groups of photos according to a scheme.
 #
 # Renames photo and video files according to the scheme
 # YYYY-MM-DD_photographer_camera_NNNN.EXT.  Currently, this script is only
@@ -36,6 +36,9 @@
 # $ajubutus_photographer    Sets $photographer
 # $ajubutus_old_scheme      Sets $old_scheme
 
+# Declaring constants
+readonly tab_usage="      "  #For printing a custom tab size when displaying usage.
+
 # Declaring variables
 program_name="ajubutus"
 camera=""
@@ -51,7 +54,8 @@ error_missing_args=1
 # Declaring and defining functions
 exit_missing_args() {
     echo "$program_name: Missing arguments."
-    echo "usage: photorenamer -d capture_date [-c camera] [-p photographer] [-s old name scheme]"
+    echo "usage: $program_name [-d capture_date] [-c camera] [-p photographer] [-s old_name_scheme]"
+    echo "$tab_usage $program_name -h"
     exit $error_missing_args
 }
 
@@ -70,8 +74,6 @@ done
 # Don't run if a capture date isn't specified.
 if [ "$capture_date" == "" ]; then
     if [ "$ajubutus_capture_date" == "" ]; then
-        echo "$ajubutus_capture_date" # Test code
-        echo "I ran." # Test code
         exit_missing_args
     else
         capture_date=$ajubutus_capture_date

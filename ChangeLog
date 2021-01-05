@@ -1,5 +1,15 @@
 2021-01-04  Paul R. Ramer  <prramer@gmail.com>
 
+        Bug fixes in preparation for initial release (v0.0)
+
+        * source/ajubutus: Removed testing code that had been accidentally left
+          behind.
+        * source/ajubutus (exit_missing_args): Fixed printing wrong program
+          name and added improved usage information.
+        * README.md: Grammar corrections
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
         Added change log.
 
         * ChangeLog: Wrote from scrach and made initial commit.
