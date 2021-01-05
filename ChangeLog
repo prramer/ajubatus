@@ -1,5 +1,25 @@
 2021-01-04  Paul R. Ramer  <prramer@gmail.com>
 
+        Release version 0.0
+
+        * releases/ajubutus_v0.0.tar.gz: Made new release tar archive.
+        * releases/ajubutus_v0.0.zip: Made new release zip archive.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Quiet zip when creating the release files.
+
+        * scripts/build_release.sh: Addedd -q option to zip.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added a release buildng script.
+
+        * scripts/build_release.sh: Wrote from scratch and made initial
+          commit.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
         Bug fixes in preparation for initial release (v0.0)
 
         * source/ajubutus: Removed testing code that had been accidentally left
