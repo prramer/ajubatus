@@ -1,0 +1,30 @@
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added change log.
+
+        * ChangeLog: Wrote from scrach and made initial commit.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added project to-do list.
+
+        * TODO: Wrote from scratch and made initial commit.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added initial version of ajubutus.
+
+        * source/ajubutus: Adapted from prior photo_renamer project and made
+          initial commit.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added project readme file.
+
+        * README.md: Wrote from scratch and made initial commit.
+
+2021-01-04  Paul R. Ramer  <prramer@gmail.com>
+
+        Added GNU GPLv3 project license.
+
+        * LICENSE: Copied from another project and made initial commit.
