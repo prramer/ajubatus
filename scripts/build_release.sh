@@ -16,4 +16,4 @@ if [ "$release_version" == "$empty_string" ]; then
 fi
 
 tar czf releases/${release_name}_v${release_version}.tar.gz ${bundle_contents[@]}
-zip releases/${release_name}_v${release_version}.zip ${bundle_contents[@]}
+zip -q releases/${release_name}_v${release_version}.zip ${bundle_contents[@]}
