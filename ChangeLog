@@ -1,5 +1,18 @@
 2021-01-05  Paul R. Ramer  <prramer@gmail.com>
 
+        Corrected systemic misspelling of project name from ajubutus to ajubatus.
+
+        * source/ajubutus: Removed file.
+        * source/ajubatus: New file copied from source/ajubutus and corrected
+          all references to.
+        * README.md: Corrected all references to ajubutus.
+        * releases/ajubutus_v0.0.tar.gz: Removed file.
+        * releases/ajubutus_v0.0.zip: Removed file.
+        * releases/ajubutus_v0.1.tar.gz: Removed file.
+        * releases/ajubutus_v0.1.zip: Removed file.
+
+2021-01-05  Paul R. Ramer  <prramer@gmail.com>
+
         Updated to-do list.
 
         * TODO: Added more future tasks.
