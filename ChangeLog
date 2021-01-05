@@ -1,3 +1,18 @@
+2021-01-05  Paul R. Ramer  <prramer@gmail.com>
+
+        Incremented ajubutus to version 0.1.
+
+2021-01-05  Paul R. Ramer  <prramer@gmail.com>
+
+        Added multiple capture dates renaming mode and squashed bugs.
+
+        * source/ajubutus: Added command line option (-m) to rename photos
+          segregated into folders by capture date.  Fixed a bug with some
+          command line options requiring parameters when they shouldn't have.
+        * source/ajubutus (print_usage): Created new function to handle
+          printing usage without error messaging.
+
+
 2021-01-04  Paul R. Ramer  <prramer@gmail.com>
 
         Release version 0.0

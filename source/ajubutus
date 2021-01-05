@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# ajubutus v0.0 -- Renames groups of photos according to a scheme.
+# ajubutus v0.1 -- Renames groups of photos according to a scheme.
 #
 # Renames photo and video files according to the scheme
 # YYYY-MM-DD_photographer_camera_NNNN.EXT.  Currently, this script is only
@@ -37,46 +37,62 @@
 # $ajubutus_old_scheme      Sets $old_scheme
 
 # Declaring constants
-readonly tab_usage="      "  #For printing a custom tab size when displaying usage.
+readonly tab_usage="      "  # For printing a custom tab size when displaying usage.
+readonly logic_true="1"      # For testing truth.
 
 # Declaring variables
-program_name="ajubutus"
 camera=""
 capture_date=""
-photographer=""
-old_scheme=""
 new_scheme=""
+old_scheme=""
+photographer=""
+program_name="ajubutus"
+multi_capture_date=""       # Set when in muliple capture date mode.
+dirs_list=""                # List of directories to traverse for renaming.
+
+# Defining arrays
+dirs_to_traverse=()         # Array of directories to traverse for renaming.
 
 # Error codes
 error_normal=0
 error_missing_args=1
 
 # Declaring and defining functions
+print_usage() {
+    echo "usage: $program_name [-d capture_date] [-c camera] [-p photographer] [-s old_name_scheme]"
+    echo "$tab_usage $program_name -m [-c camera] [-p photographer] [-s old_name_scheme]"
+    echo "$tab_usage $program_name -h"
+
+}
 exit_missing_args() {
     echo "$program_name: Missing arguments."
-    echo "usage: $program_name [-d capture_date] [-c camera] [-p photographer] [-s old_name_scheme]"
-    echo "$tab_usage $program_name -h"
+    print_usage
     exit $error_missing_args
 }
 
 
 # Command line options.
-while getopts ":h:c:d:p:s:" arg; do
+while getopts ":hc:d:p:s:m" arg; do
     case $arg in
         h) print_usage; exit $error_normal;; #Print usage help.
         c) camera=$OPTARG;;
         d) capture_date=$OPTARG;;
         p) photographer=$OPTARG;;
         s) old_scheme=$OPTARG;;
+        m) multi_capture_date=$logic_true;;
     esac
 done
 
-# Don't run if a capture date isn't specified.
-if [ "$capture_date" == "" ]; then
-    if [ "$ajubutus_capture_date" == "" ]; then
-        exit_missing_args
-    else
-        capture_date=$ajubutus_capture_date
+
+# Don't run if neither multiple capture dates mode is set or a single capture
+# date isn't specified.
+if [ ! "$multi_capture_date" == "$logic_true" ]; then
+    if [ "$capture_date" == "" ]; then
+        if [ "$ajubutus_capture_date" == "" ]; then
+            exit_missing_args
+        else
+            capture_date=$ajubutus_capture_date
+        fi
     fi
 fi
 
@@ -106,10 +122,29 @@ if [ "$old_scheme" == "" ]; then
     fi
 fi
 
-# Now set the new naming scheme.
-new_scheme="${capture_date}_${photographer}_${camera}_"
+# Rename photos in the working directory, or if multiple capture dates is
+# enabled, go into directories one by one and rename the photos.
+if [ ! "$multi_capture_date" == "$logic_true" ]; then
+    # Now set the new naming scheme.
+    new_scheme="${capture_date}_${photographer}_${camera}_"
 
-# Rename all files in the directory according to the naming scheme and make
-# sure everything is lowercase in the end.
-rename "s/$old_scheme/$new_scheme/" *
-rename -f 'y/A-Z/a-z/' *
+    # Rename all files in the directory according to the naming scheme and make
+    # sure everything is lowercase in the end.
+    rename "s/$old_scheme/$new_scheme/" *
+    rename -f 'y/A-Z/a-z/' *
+else
+    # Get a list of the directories that are present and use their names as the
+    # capture dates.  Then enter each directory, rename the files, and then go
+    # to the next one.
+
+    dirs_list=$(ls -F1 |grep \/ |sed 's/\/$//' |tr '\n' ' ')
+    dirs_to_traverse=($dirs_list)
+
+    for capture_date in "${dirs_to_traverse[@]}"; do
+        cd $capture_date
+        new_scheme="${capture_date}_${photographer}_${camera}_"
+        rename "s/$old_scheme/$new_scheme/" *
+        rename -f 'y/A-Z/a-z/' *
+        cd - >/dev/null
+    done
+fi
