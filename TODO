@@ -2,5 +2,6 @@ To-Do
 
 
 * Expand the file renaming capabilities to include renaming based on embedded metadata.
-
 * Expand the file renaming to a configurable scheme that can be stored in a configuration file.
+* Add a manpage. 
+* Make an install script.
