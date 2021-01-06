@@ -1,5 +1,12 @@
 2021-01-05  Paul R. Ramer  <prramer@gmail.com>
 
+        Added back release files for version 0.1.
+
+        * releases/ajubutus_v0.1.tar.gz: Added new release tar file.
+        * releases/ajubutus_v0.1.zip: Added new release zip file.
+
+2021-01-05  Paul R. Ramer  <prramer@gmail.com>
+
         Corrected systemic misspelling of project name from ajubutus to ajubatus.
 
         * source/ajubutus: Removed file.
