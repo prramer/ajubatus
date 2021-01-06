@@ -2,7 +2,7 @@
 
 # Builds the release files.  Must be run in the project's root directory.
 
-release_name="ajubutus"
+release_name="ajubatus"
 release_version=$1
 error_missing_args=1
 program_name=$0
