@@ -6,6 +6,10 @@
 # YYYY-MM-DD_photographer_camera_NNNN.EXT.  Currently, this script is only
 # compatible with renaming files from Nikon DSLRs such the NIkon D600.
 #
+#
+#
+# ~~~ License ~~~
+#
 # Copyright 2020 Paul R. Ramer (prramer)
 #
 # This program is free software: you can redistribute it and/or modify
